@@ -65,7 +65,7 @@ pipeline {
 		    sleep (time: 5)
 	            def response = httpRequest (
 		        url: "http://$KUBERNETES_NODE_IP:8081/",
-		        timeout: 30
+		        timeout: 50
 	            )
 		    if(respone.status != 200){
 		        error("Smoke test against canary deployment failed.")
@@ -79,7 +79,6 @@ pipeline {
                 branch 'master'
             }            
             steps {
-                milestone(1)        
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig',
                     configs: 'train-schedule-kube.yml',
